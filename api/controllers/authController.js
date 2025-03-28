@@ -9,7 +9,49 @@ const signToken = (id) => {
 }
 
 // Signin
-export const signin = async (req, res) => {}
+export const signin = async (req, res) => {
+    const {email, password} = req.body
+    try {
+        if ( !email || !password ) {
+            return res.status(400).json({ 
+                success: false,
+                message: "Please fill all fields", 
+            })
+        }
+
+        // Check if user exists
+        const user = await User.findOne({ email }).select("+password");
+
+        if ( !user || !(await user.matchPassword(password)) ) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid email or password",
+            })
+        }
+
+        // Create token and send it in a cookie
+        const token = signToken(user._id)
+
+        res.cookie("jwt", token, {
+            maxAge: 24 * 60 * 60 * 1000, // 1 day in miliseconds
+            httpOnly: true, // prevents XSS attacks
+            sameSite: "strict", // prevents CSRF attacks
+            secure: process.env.NODE_ENV === "production", // only send cookie over HTTPS in production
+        });
+        
+        res.status(200).json({
+            success: true,
+            user
+        })
+
+    } catch (error) {
+        console.log("Error in signin controller: ", error.message);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error",
+        })
+    }
+}
 
 // Signup
 export const signup = async (req, res) => {
@@ -63,4 +105,14 @@ export const signup = async (req, res) => {
 }
 
 // Signout
-export const signout = async (req, res) => {}
+export const signout = async (req, res) => {
+    res.clearCookie("jwt", {
+        httpOnly: true,
+        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production",
+    })
+    res.status(200).json({
+        success: true,
+        message: "User signed out successfully",
+    })
+}
