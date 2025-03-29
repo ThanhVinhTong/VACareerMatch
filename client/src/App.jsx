@@ -5,7 +5,7 @@ import HomePage from './pages/HomePage';
 import AuthPage from './pages/AuthPage';
 import ProfilePage from './pages/ProfilePage';
 import ChatPage from './pages/ChatPage';
-import { useAuthStore } from './store/useAuthStore';
+import { useAuthStore } from './store/useAuthStore.js';
 import { Toaster } from 'react-hot-toast';
 
 function App() {

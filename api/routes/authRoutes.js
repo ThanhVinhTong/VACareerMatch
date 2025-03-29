@@ -8,7 +8,7 @@ router.post("/signin", signin);
 router.post("/signup", signup);
 router.post("/signout", signout);
 
-router.merge("/me", protectRoute, (req,res) => {
+router.get("/me", protectRoute, (req,res) => {
     res.send({
         success: true,
         user: req.user,

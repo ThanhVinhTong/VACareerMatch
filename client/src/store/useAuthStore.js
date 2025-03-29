@@ -1,4 +1,4 @@
-import {create} from "zustand";
+import { create } from "zustand";
 import { axiosInstance } from "../lib/axios.js";
 import toast from "react-hot-toast";
 
@@ -9,12 +9,12 @@ export const useAuthStore = create((set) => ({
 
     signup: async(signupData) => {
         try {
-            set({loading: true})
-            const res = await axiosInstance.post("/auth/signup", signupData)
-            set({authUser: res.data.user})
-            toast.success("Account created successfully")
+            set({loading: true});
+            const res = await axiosInstance.post("/auth/signup", signupData);
+            set({authUser: res.data.user});
+            toast.success("Account created successfully");
         } catch (error) {
-            toast.error(error.response.data.message || "Something went wrong")
+            toast.error(error.response.data.message || "Something went wrong");
         } finally {
             set({loading: false});
         }
@@ -22,12 +22,12 @@ export const useAuthStore = create((set) => ({
     
     signin: async(signinData) => {
         try {
-            set({loading: true})
-            const res = await axiosInstance.post("/auth/signin", signinData)
-            set({authUser: res.data.user})
-            toast.success("Signed in successfully")
+            set({ loading: true });
+            const res = await axiosInstance.post("/auth/signin", signinData);
+            set({ authUser: res.data.user });
+            toast.success("Signed in successfully");
         } catch (error) {
-            toast.error(error.response.data.message || "Something went wrong")
+            toast.error(error.response.data.message || "Something went wrong");
         } finally {
             set({loading: false});
         }
@@ -44,13 +44,15 @@ export const useAuthStore = create((set) => ({
 
     checkAuth: async () => {
         try {
-            await axiosInstance.get("/auth/me");
+            const res = await axiosInstance.get("/auth/me");
             set({authUser: res.data.user});
         } catch (error) {
+            // set({ authUser: null });
             console.log(error);
         } finally {
             set({ checkingAuth: false });
         }
-    }
+    },
 
+    setAuthUser: (user) => set({ authUser: user }),
 }))
