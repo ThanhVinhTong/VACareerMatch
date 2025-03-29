@@ -1,4 +1,5 @@
 import User from "../models/user.model.js";
+import cloudinary from "../config/cloudinary.js";
 
 export const updateProfile = async (req, res) => {
     // user send img => upload to cloudinary => get url => save to db
