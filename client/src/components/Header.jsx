@@ -116,7 +116,7 @@ export const Header = () => {
 								</Link>
 								<button
 									onClick={() => {
-										logout();
+										signout();
 										setMobileMenuOpen(false);
 									}}
 									className='block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-yellow-700'
@@ -148,5 +148,3 @@ export const Header = () => {
         </header>
     )
 }
-
-export default Header

@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/ThanhVinhTong/VACareerMatch#readme",
   "dependencies": {
+    "@react-spring/web": "^9.7.5",
     "bcryptjs": "^3.0.2",
     "cloudinary": "^2.6.0",
     "cookie-parser": "^1.4.7",
@@ -27,7 +28,8 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.13.0",
-    "socket.io": "^4.8.1"
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"

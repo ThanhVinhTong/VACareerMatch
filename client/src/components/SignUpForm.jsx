@@ -160,20 +160,6 @@ const SignUpForm = () => {
 							Female
 						</label>
 					</div>
-					<div className='flex items-center'>
-						<input
-							id='prefer-both'
-							name='gender-preference'
-							type='radio'
-							value='both'
-							checked={genderPreference === "both"}
-							onChange={(e) => setGenderPreference(e.target.value)}
-							className='h-4 w-4 text-cyan-600 focus:ring-cyan-500 border-gray-300'
-						/>
-						<label htmlFor='prefer-both' className='ml-2 block text-sm text-gray-900'>
-							Both
-						</label>
-					</div>
 				</div>
 			</div>
 

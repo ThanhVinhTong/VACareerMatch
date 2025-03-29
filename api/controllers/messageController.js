@@ -1,44 +1,59 @@
-import Message from '../models/message.model.js';
+import Message from "../models/message.model.js";
+import { getConnectedUsers, getIO } from "../socket/socket.server.js";
 
 export const sendMessage = async (req, res) => {
-    try {
-        const {content, receiverId} = req.body;
+	try {
+		const { content, receiverId } = req.body;
+		console.log(req)
 
-        const newMessage = await Message.create({
-            sender: req.user._id,
-            receiver: receiverId,
-            content
-        });
+		const newMessage = await Message.create({
+			sender: req.user.id,
+			receiver: receiverId,
+			content,
+		});
 
-        // TODO: SEND MESSAGE TO RECEIVER USING SOCKET.IO
-        // ...
+		const io = getIO();
+		const connectedUsers = getConnectedUsers();
+		const receiverSocketId = connectedUsers.get(receiverId);
 
-        res.status(201).json({
-            message: 'Message sent successfully',
-            data: newMessage
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-}
+		if (receiverSocketId) {
+			io.to(receiverSocketId).emit("newMessage", {
+				message: newMessage,
+			});
+		}
+
+		res.status(201).json({
+			success: true,
+			message: newMessage,
+		});
+	} catch (error) {
+		console.log("Error in sendMessage: ", error);
+		res.status(500).json({
+			success: false,
+			message: "Internal server error",
+		});
+	}
+};
 
 export const getConversation = async (req, res) => {
-    const { userId } = req.params;
-    try {
-        const messages = await Message.find({
-            $or: [
-                { sender: req.user._id, receiver: userId },
-                { sender: userId, receiver: req.user._id }
-            ]
-        }).sort({ "createdAt": -1 });
+	const { userId } = req.params;
+	try {
+		const messages = await Message.find({
+			$or: [
+				{ sender: req.user._id, receiver: userId },
+				{ sender: userId, receiver: req.user._id },
+			],
+		}).sort("createdAt");
 
-        res.status(200).json({
-            message: 'Conversation retrieved successfully',
-            data: messages
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-}
+		res.status(200).json({
+			success: true,
+			messages,
+		});
+	} catch (error) {
+		console.log("Error in getConversation: ", error);
+		res.status(500).json({
+			success: false,
+			message: "Internal server error",
+		});
+	}
+};
