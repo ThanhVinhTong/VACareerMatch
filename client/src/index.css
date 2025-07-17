@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+/*
+IT Professional Color Palette (Blue, Gray, Black, White)
+- Blue: #2563eb (primary)
+- Dark Blue: #1e293b (header/footer/accent)
+- Gray: #64748b (backgrounds, cards, text)
+- Black: #111827 (strong accents, text)
+- White: #ffffff (background, cards)
+*/
+:root {
+  --color-primary: #2563eb;
+  --color-dark: #1e293b;
+  --color-gray: #64748b;
+  --color-black: #111827;
+  --color-white: #ffffff;
+}
