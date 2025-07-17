@@ -42,7 +42,7 @@ export const Header = () => {
                                     className='flex items-center space-x-2 focus:outline-none'
                                 >
                                     <img 
-                                        src={'authUser.image || "/avatar.png'}
+                                        src={`https://cataas.com/cat?width=200&height=200&unique=${authUser?._id || authUser?.name || 'default'}`}
                                         className='h-10 w-10 object-cover rounded-full border-white'
                                         alt='User Image'
                                     />

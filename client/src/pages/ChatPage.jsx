@@ -38,8 +38,9 @@ const ChatPage = () => {
 			<div className='flex-grow flex flex-col p-4 md:p-6 lg:p-8 overflow-hidden max-w-4xl mx-auto w-full'>
 				<div className='flex items-center mb-4 bg-white rounded-lg shadow p-3'>
 					<img
-						src={match.image || "/avatar.png"}
+						src={`https://cataas.com/cat?width=200&height=200&unique=${match[0] || 'default'}`}
 						className='w-12 h-12 object-cover rounded-full mr-3 border-2 border-pink-300'
+						alt='User avatar'
 					/>
 					<h2 className='text-xl font-semibold text-gray-800'>{match.name}</h2>
 				</div>

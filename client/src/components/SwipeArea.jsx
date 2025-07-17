@@ -27,7 +27,7 @@ const SwipeArea = () => {
 					>
 						<figure className='px-4 pt-4 h-3/4'>
 							<img
-								src={user.image || "/avatar.png"}
+								src={`https://cataas.com/cat?width=200&height=200&unique=${user._id || 'default'}`}
 								alt={user.name}
 								className='rounded-lg object-cover h-full pointer-events-none'
 							/>

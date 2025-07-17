@@ -48,7 +48,7 @@ const Sidebar = () => {
 								<Link key={match[0]} to={`/chat/${match[0]}`}>
 									<div className='flex items-center mb-4 cursor-pointer hover:bg-cyan-50 p-2 rounded-lg transition-colors duration-300'>
 										<img
-											src={match.image || "/avatar.png"}
+											src={`https://cataas.com/cat?width=200&height=200&unique=${match[0] || 'default'}`}
 											alt='User avatar'
 											className='size-12 object-cover rounded-full mr-3 border-2 border-cyan-300'
 										/>

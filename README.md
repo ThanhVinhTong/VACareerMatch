@@ -27,6 +27,37 @@ VACareerMatch was honored with the “Out of the Box” Award at the VAIT contes
 - npm (comes with Node.js)
 - MongoDB (local or cloud instance)
 
+### Database Setup
+
+You can use either a local MongoDB instance or a cloud-based solution like MongoDB Atlas.
+
+#### Local Installation
+- Download MongoDB Community Server from the [official website](https://www.mongodb.com/try/download/community).
+- Follow the installation instructions for your operating system.
+- Start the MongoDB server (usually with `mongod` or via the MongoDB Compass app).
+
+#### MongoDB Atlas (Cloud)
+- Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) and sign up for a free account.
+- Create a new cluster and database.
+- Whitelist your IP address and create a database user with a password.
+- Copy the provided connection string (it will look like `mongodb+srv://<username>:<password>@cluster0.mongodb.net/<dbname>?retryWrites=true&w=majority`).
+
+#### Configuring the Database Connection
+
+1. In the `api/` directory, create a `.env` file if it doesn't exist.
+2. Add the following line to your `.env` file, replacing the placeholder with your actual connection string:
+   ```env
+   MONGODB_URI=your_mongodb_connection_string
+   ```
+   - For local MongoDB, it might look like:
+     ```env
+     MONGODB_URI=mongodb://localhost:27017/vacareermatch
+     ```
+   - For Atlas, use the string provided by the Atlas dashboard.
+3. Save the file. The backend will use this variable to connect to your database.
+
+> **Note:** Never commit your `.env` file or sensitive credentials to version control.
+
 ### Backend Setup
 1. Navigate to the backend directory:
    ```sh
